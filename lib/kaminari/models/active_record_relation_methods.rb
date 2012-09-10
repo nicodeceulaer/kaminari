@@ -17,7 +17,7 @@ module Kaminari
         c = c.except(:includes) unless references_eager_loaded_tables?
 
         # a workaround to count the actual model instances on distinct query because count + distinct returns wrong value in some cases. see https://github.com/amatsuda/kaminari/pull/160
-        uses_distinct_sql_statement = c.to_sql =~ /DISTINCT/i
+        uses_distinct_sql_statement = false # c.to_sql =~ /DISTINCT/i
         if uses_distinct_sql_statement
           ActiveRecord::Base.connection.select_values(c.to_sql).length
         else
